@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if(( $# == 0 ))
+  then
+    echo -e "Usage\n";
+    echo -e "hex2ascii <hexadecimal_value>\n";
+    echo -e "Ex. hex2ascii 2e";
+    exit 0;
+fi
+
+echo -e "\x$1" | cat

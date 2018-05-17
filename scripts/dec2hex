@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if(( $# == 0 ))
+  then
+    echo -e "Usage\n";
+    echo -e "dec2hex <decimal_value>\n";
+    exit 0;
+fi
+
+inp=`echo $1 | awk '{print toupper($0)}'`
+echo "ibase=10; obase=16; $inp" | bc
