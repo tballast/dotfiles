@@ -1,0 +1,111 @@
+#!/bin/bash
+
+#Aliai
+alias ll='ls -lh'
+alias la='ls -lah'
+alias gitter='git clone'
+alias weather='curl wttr.in/~london-ontario'
+alias moon="curl wttr.in/Moon"
+alias tidocs='cd /opt/cc2640r2/simplelink_cc2640r2_sdk_1_00_00_22/docs/tirtos/sysbios/docs/cdoc;python -m SimpleHTTPServer'
+alias gcr='git commit -am "gem:0 rebase"'
+alias bach="echo \"I got you boi, bash comin' right up\";bash"
+alias gfy='git fetch --all --prune'
+alias ccat='pygmentize -g'
+
+alias stressme50='stress --cpu 4 --timeout 5'
+alias stressme100='stress --cpu 8 --timeout 5'
+alias stressme25='stress --cpu 2 --timeout 5'
+
+#Environment
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
+export PATH=$PATH:$JAVA_HOME
+export PATH=$PATH:/usr/local/scripts
+export PATH=$PATH:/opt/timesys/toolchains/toolchain-arm_v5te_gcc-4.6-linaro_uClibc-0.9.33.2_eabi/bin
+export PATH=$PATH:/opt/timesys/toolchains/toolchain-arm_v5te_gcc-4.6-linaro_uClibc-0.9.33.2_eabi/lib
+export PATH=$PATH:/usr/local/arm-linux-4.4.2/bin
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/ti/ccsv7/eclipse
+
+export ZTR_SDK_HOME=/home/tballast/SSID/ZTRSDK/trunk
+export MANPATH="$MANPATH:/usr/local/arm-linux-4.4.2/man"
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tballast/SSID/ZTRSDK/trunk/lib/boost/1.59.0/lib/x64:/home/tballast/SSID/ZTRSDK/trunk/lib/libnodave/0.8.4.6/lib/x64:/opt/ztr/lib
+
+alias gnome-control-center="XDG_CURRENT_DESKTOP=Unity gnome-control-center"
+
+
+#Functions
+function make {
+SCREEN=3
+X_POS=3575
+Y_POS=378
+for var in "$@"
+do
+    if [[ $var == "force_flash" ]]; then
+    	python ~/Development/Scripts/force_flash.py $SCREEN $X_POS $Y_POS
+    	sleep 5
+    	break
+    fi
+done
+
+/usr/bin/make $@ 2>&1 | sed -e 's/\(.*note:.*\)/\o033[38;5;82m\1\o033[39m/' \
+-e 's/\(.*warning.*\)/\o033[1m\o033[38;5;172m\1\o033[39m\o033[21m/' \
+-e 's/\(.*: error:.*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/' \
+-e 's/\(.*line .*: error .*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/' \
+-e 's/\(.* Error .*\)/\o033[31m\1\o033[39m/' \
+-e 's/\(.*In file included .*\)/\o033[38;5;165m\1\o033[39m/' \
+-e 's/\(.*: In .*\)/\o033[38;5;165m\1\o033[39m/' \
+-e 's/\(.*                 from .*\)/\o033[38;5;165m\1\o033[39m/' \
+-e 's/\(.*: fatal error:.*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/';
+
+}
+
+
+function preexec() {
+	tmr=$(($(date +%s%N)/1000000))
+}
+
+function precmd() {
+	if [ $tmr ]; then
+		jetzt=$(($(date +%s%N)/1000000))
+		elapsed=$(($jetzt-$tmr))
+
+		# Need to grab the elapsed seconds ans elapsed milliseconds. 
+
+		SEC=1000
+		MIN=60000
+		HOUR=3600000
+		DAY=86400000
+
+		num_days=$(expr $elapsed / $DAY)
+		num_hours=$(expr $elapsed % $DAY / $HOUR)
+		num_mins=$(expr $elapsed % $HOUR / $MIN)
+		num_secs=$(expr $elapsed % $MIN / $SEC)
+		num_millis=$(expr $elapsed % $SEC)
+		time_str=""
+
+		# Only add Days, Hours, and Minutes if they are actually necessary
+		if [ $num_days -gt 0 ]; then
+			time_str=${time_str}${num_days}"d "
+		fi
+		if [ $num_hours -gt 0 ]; then
+			time_str=${time_str}${num_hours}"h "
+		fi
+		if [ $num_mins -gt 0 ]; then
+			time_str=${time_str}${num_mins}"m "
+		fi
+
+		# Format the milliseconds with 3 decimal places
+		millis_pretty=$(printf '%03d' $num_millis)
+
+		time_str=${time_str}${num_secs}"s"${millis_pretty}
+
+		export RPROMPT="%F{cyan}[${time_str}] %{$reset_color%}"
+		unset tmr
+	fi
+
+	echo -ne `pwd` > /tmp/SHIT
+
+}
+

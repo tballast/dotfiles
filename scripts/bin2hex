@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if(( $# == 0 ))
+  then
+    echo -e "Usage\n";
+    echo -e "bin2hex <binary_value>\n";
+    exit 0;
+fi
+
+echo "obase=16; ibase=2; $1" | bc
