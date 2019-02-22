@@ -30,6 +30,8 @@ export PATH=$PATH:$JAVA_HOME
 export PATH=$PATH:~/scripts/sys
 export PATH=$PATH:/home/tballast/bin
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/ti/ccsv7/eclipse
+export PATH=$PATH:~/bin
 export PATH=$PATH:/opt/sts-bundle/sts-3.9.4.RELEASE
 export PATH=$PATH:/opt/idea-IU-183.4284.148/bin
 
