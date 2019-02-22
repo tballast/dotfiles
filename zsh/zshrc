@@ -23,5 +23,19 @@ antigen theme ys
 
 antigen apply
 
+# Going inside a docker container
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+goinside(){
+    docker exec -it $1 bash -c "stty cols $COLUMNS rows $LINES && bash";
+};
+_goinside(){
+    COMPREPLY=( $(docker ps --format "{{.Names}}" -f name=$2) );
+};
+
+complete -F _goinside goinside;
+export goinside;
+
 #Get My aliases and stuff
 source ~/.tball_custom_zsh

@@ -4,50 +4,55 @@
 alias ll='ls -lh'
 alias la='ls -lah'
 alias gitter='git clone'
-alias weather='curl wttr.in/~london-ontario'
+alias weather='curl wttr.in/~mannheim-germany'
 alias moon="curl wttr.in/Moon"
-alias tidocs='cd /opt/cc2640r2/simplelink_cc2640r2_sdk_1_00_00_22/docs/tirtos/sysbios/docs/cdoc;python -m SimpleHTTPServer'
 alias gcr='git commit -am "gem:0 rebase"'
 alias bach="echo \"I got you boi, bash comin' right up\";bash"
 alias gfy='git fetch --all --prune'
 alias ccat='pygmentize -g'
+alias subli3='subl ~/.config/i3/'
+alias cdx='cd /home/tballast/git/reportix/xbrl-server2'
+alias mkdirdate="mkdir $(date '+%d-%b-%Y')"
+alias sshlordsugar="ssh -i ~/.ssh/id_rsa_reportix_server tballast@lord-sugar"
+
+alias rmdeadcont="docker rm $(docker ps -aq --filter status=exited)"
+
 
 alias stressme50='stress --cpu 4 --timeout 5'
 alias stressme100='stress --cpu 8 --timeout 5'
 alias stressme25='stress --cpu 2 --timeout 5'
 
+
 #Environment
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/java-10-oracle"
 
 export PATH=$PATH:$JAVA_HOME
-export PATH=$PATH:/usr/local/scripts
-export PATH=$PATH:/opt/timesys/toolchains/toolchain-arm_v5te_gcc-4.6-linaro_uClibc-0.9.33.2_eabi/bin
-export PATH=$PATH:/opt/timesys/toolchains/toolchain-arm_v5te_gcc-4.6-linaro_uClibc-0.9.33.2_eabi/lib
-export PATH=$PATH:/usr/local/arm-linux-4.4.2/bin
+export PATH=$PATH:~/scripts/sys
+export PATH=$PATH:/home/tballast/bin
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/opt/ti/ccsv7/eclipse
+export PATH=$PATH:/opt/sts-bundle/sts-3.9.4.RELEASE
+export PATH=$PATH:/opt/idea-IU-183.4284.148/bin
 
-export ZTR_SDK_HOME=/home/tballast/SSID/ZTRSDK/trunk
+export GEM_HOME=$HOME/gems
+export PATH=$PATH:$GEM_HOME/bin
+
+export PATH=$PATH:/home/tballast/hlfabric/fabric-samples/bin
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 export MANPATH="$MANPATH:/usr/local/arm-linux-4.4.2/man"
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tballast/SSID/ZTRSDK/trunk/lib/boost/1.59.0/lib/x64:/home/tballast/SSID/ZTRSDK/trunk/lib/libnodave/0.8.4.6/lib/x64:/opt/ztr/lib
 
 alias gnome-control-center="XDG_CURRENT_DESKTOP=Unity gnome-control-center"
 
+# Node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #Functions
+
 function make {
-SCREEN=3
-X_POS=3575
-Y_POS=378
-for var in "$@"
-do
-    if [[ $var == "force_flash" ]]; then
-    	python ~/Development/Scripts/force_flash.py $SCREEN $X_POS $Y_POS
-    	sleep 5
-    	break
-    fi
-done
 
 /usr/bin/make $@ 2>&1 | sed -e 's/\(.*note:.*\)/\o033[38;5;82m\1\o033[39m/' \
 -e 's/\(.*warning.*\)/\o033[1m\o033[38;5;172m\1\o033[39m\o033[21m/' \
@@ -109,3 +114,6 @@ function precmd() {
 
 }
 
+setopt HIST_IGNORE_SPACE
+
+source ~/.zprofile
