@@ -26,6 +26,7 @@ export PATH=$PATH:/opt/timesys/toolchains/toolchain-arm_v5te_gcc-4.6-linaro_uCli
 export PATH=$PATH:/usr/local/arm-linux-4.4.2/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/opt/ti/ccsv7/eclipse
+export PATH=$PATH:~/bin
 
 export ZTR_SDK_HOME=/home/tballast/SSID/ZTRSDK/trunk
 export MANPATH="$MANPATH:/usr/local/arm-linux-4.4.2/man"
@@ -33,6 +34,10 @@ export MANPATH="$MANPATH:/usr/local/arm-linux-4.4.2/man"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/tballast/SSID/ZTRSDK/trunk/lib/boost/1.59.0/lib/x64:/home/tballast/SSID/ZTRSDK/trunk/lib/libnodave/0.8.4.6/lib/x64:/opt/ztr/lib
 
 alias gnome-control-center="XDG_CURRENT_DESKTOP=Unity gnome-control-center"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 #Functions
