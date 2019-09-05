@@ -37,5 +37,10 @@ _goinside(){
 complete -F _goinside goinside;
 export goinside;
 
+
+    source <(kubectl completion zsh)
+
+
+
 #Get My aliases and stuff
 source ~/.tball_custom_zsh
