@@ -31,16 +31,24 @@ export PATH=$PATH:~/scripts/sys
 export PATH=$PATH:/home/tballast/bin
 export PATH=$PATH:/home/tballast/bin/sloppz
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/ti/ccsv7/eclipse
+export PATH=$PATH:~/bin
 export PATH=$PATH:/opt/sts-bundle/sts-3.9.4.RELEASE
+export PATH=$PATH:/opt/idea-IU-183.4284.148/bin
+export PATH=$PATH:/opt/WebStorm-183.5912.23/bin
 export PATH=$PATH:/opt/idea-IU-191.6183.87/bin
 
+export PATH=~/.local/bin:$PATH
 export GEM_HOME=$HOME/gems
 export PATH=$PATH:$GEM_HOME/bin
 
-export PATH=$PATH:/home/tballast/hlfabric/fabric-samples/bin
+export NVM_SYMLINK_CURRENT=true
+#export PATH=$PATH:/home/tballast/hlfabric/fabric-samples/bin
+export PATH=$PATH:/home/tballast/fabric/fabric-samples-1.4/bin
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:`yarn global bin`
 
 export MANPATH="$MANPATH:/usr/local/arm-linux-4.4.2/man"
 
@@ -56,22 +64,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #Functions
-
-function make {
-
-/usr/bin/make $@ 2>&1 | sed -e 's/\(.*note:.*\)/\o033[38;5;82m\1\o033[39m/' \
--e 's/\(.*warning.*\)/\o033[1m\o033[38;5;172m\1\o033[39m\o033[21m/' \
--e 's/\(.*: error:.*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/' \
--e 's/\(.*line .*: error .*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/' \
--e 's/\(.* Error .*\)/\o033[31m\1\o033[39m/' \
--e 's/\(.*In file included .*\)/\o033[38;5;165m\1\o033[39m/' \
--e 's/\(.*: In .*\)/\o033[38;5;165m\1\o033[39m/' \
--e 's/\(.*                 from .*\)/\o033[38;5;165m\1\o033[39m/' \
--e 's/\(.*: fatal error:.*\)/\o033[1m\o033[31m\1\o033[39m\o033[21m/';
-
-}
-
-
 function preexec() {
 	tmr=$(($(date +%s%N)/1000000))
 }
@@ -121,4 +113,11 @@ function precmd() {
 
 setopt HIST_IGNORE_SPACE
 
-source ~/.zprofile
+
+# Node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+#source ~/.zprofile
